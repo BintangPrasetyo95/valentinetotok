@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Special ♥</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #000000;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .center-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: white;
+            transform: translateY(-50%);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 255, 255, 0.6),
+                0 0 30px rgba(255, 255, 255, 0.4);
+            animation: glowPulse 2s ease-in-out infinite;
+            transition: all 1.5s ease;
+            z-index: 1;
+        }
+
+        .center-line.expand {
+            height: 100vh;
+            width: 100vw;
+            top: 0;
+            left: 0;
+            transform: none;
+            animation: none;
+        }
+
+        @keyframes glowPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                    0 0 20px rgba(255, 255, 255, 0.6),
+                    0 0 30px rgba(255, 255, 255, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 1),
+                    0 0 30px rgba(255, 255, 255, 0.8),
+                    0 0 40px rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .game-container {
+            position: relative;
+            width: 600px;
+            height: 500px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .instruction {
+            color: white;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        .infinity-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 200px;
+        }
+
+        .trail {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .trail1 {
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
+            background: rgba(255, 107, 107, 0.4);
+        }
+
+        .trail2 {
+            box-shadow: 0 0 20px rgba(78, 205, 196, 0.6);
+            background: rgba(78, 205, 196, 0.4);
+        }
+
+        .dot {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.1s ease;
+            z-index: 10;
+        }
+
+        .dot1 {
+            background: #ff6b6b;
+            box-shadow: 0 0 20px #ff6b6b,
+                0 0 30px #ff6b6b,
+                0 0 40px rgba(255, 107, 107, 0.5);
+        }
+
+        .dot2 {
+            background: #4ecdc4;
+            box-shadow: 0 0 20px #4ecdc4,
+                0 0 30px #4ecdc4,
+                0 0 40px rgba(78, 205, 196, 0.5);
+        }
+
+        .center-target {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            border: 3px dashed rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.3);
+                opacity: 0.5;
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        .score {
+            color: white;
+            font-size: 1.5em;
+            margin-top: 30px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .click-zone {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            z-index: 100;
+            border-radius: 50%;
+        }
+
+        .click-zone:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .feedback {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.8em;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .feedback.show {
+            opacity: 1;
+        }
+
+        .feedback.success {
+            color: #4ecdc4;
+            text-shadow: 0 0 15px #4ecdc4,
+                0 0 25px #4ecdc4;
+        }
+
+        .feedback.fail {
+            color: #ff6b6b;
+            text-shadow: 0 0 15px #ff6b6b,
+                0 0 25px #ff6b6b;
+        }
+
+        .message-container {
+            display: none;
+            color: #000000;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        .message-container.show {
+            display: block;
+        }
+
+        .message-container.fade-in {
+            opacity: 1;
+        }
+
+        .message-container h2 {
+            font-family: 'Caveat', cursive;
+            font-size: 4em;
+            margin-bottom: 40px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .typewriter {
+            font-family: 'Caveat', cursive;
+            font-size: 2em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            min-height: 150px;
+            animation: float 3s ease-in-out infinite 0.5s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .hearts {
+            font-size: 2.5em;
+            margin-top: 30px;
+            animation: heartBeat 1.5s infinite, float 3s ease-in-out infinite 1s;
+        }
+
+        @keyframes heartBeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(1.1);
+            }
+
+            50% {
+                transform: scale(1);
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="center-line" id="centerLine"></div>
+
+    <div class="container">
+        <div id="gameSection">
+            <h1>💝 Valentine Challenge 💝</h1>
+            <p class="instruction">Klik saat kedua titik bertemu di tengah!</p>
+
+            <div class="feedback" id="feedback"></div>
+
+            <div class="game-container">
+                <div class="infinity-container" id="infinityContainer">
+                    <div class="center-target"></div>
+                    <div class="dot dot1" id="dot1"></div>
+                    <div class="dot dot2" id="dot2"></div>
+                    <div class="click-zone" id="clickZone"></div>
+                </div>
+            </div>
+
+            <div class="score">Score: <span id="score">0</span> / 5</div>
+        </div>
+
+        <div class="message-container" id="messageContainer">
+            <h2>🌹 Selamat Valentine! 🌹</h2>
+            <div class="typewriter" id="typewriter"></div>
+            <div class="hearts">💖 💝 💗 💓 💕</div>
+        </div>
+    </div>
+
+    <script>
+        const dot1 = document.getElementById('dot1');
+        const dot2 = document.getElementById('dot2');
+        const clickZone = document.getElementById('clickZone');
+        const scoreEl = document.getElementById('score');
+        const feedback = document.getElementById('feedback');
+        const gameSection = document.getElementById('gameSection');
+        const messageContainer = document.getElementById('messageContainer');
+        const typewriterEl = document.getElementById('typewriter');
+        const centerLine = document.getElementById('centerLine');
+        const infinityContainer = document.getElementById('infinityContainer');
+
+        let score = 0;
+        let t1 = 0;
+        let t2 = Math.PI;
+        const speed = 0.015;
+        const targetScore = 5;
+
+        const message = "Di hari Valentine ini, aku cuma mau bilang... terima kasih udah ada dan bikin hari-hari jadi lebih berwarna. Kamu spesial banget! ✨";
+
+        const trail1 = [];
+        const trail2 = [];
+        const maxTrailLength = 15;
+
+        function createTrail(x, y, className) {
+            const trail = document.createElement('div');
+            trail.className = 'trail ' + className;
+            trail.style.left = x + 'px';
+            trail.style.top = y + 'px';
+            trail.style.width = '20px';
+            trail.style.height = '20px';
+            trail.style.transform = 'translate(-50%, -50%)';
+            infinityContainer.appendChild(trail);
+            return trail;
+        }
+
+        function updateTrail(trails, x, y, className) {
+            const newTrail = createTrail(x, y, className);
+            trails.push(newTrail);
+
+            if (trails.length > maxTrailLength) {
+                const oldTrail = trails.shift();
+                oldTrail.remove();
+            }
+
+            trails.forEach((trail, index) => {
+                const opacity = (index + 1) / maxTrailLength;
+                const scale = (index + 1) / maxTrailLength * 0.8;
+                trail.style.opacity = opacity * 0.4;
+                trail.style.transform = `translate(-50%, -50%) scale(${scale})`;
+            });
+        }
+
+        function getInfinityPosition(t) {
+            const scale = 90;
+            const x = scale * Math.cos(t) / (1 + Math.sin(t) * Math.sin(t));
+            const y = scale * Math.sin(t) * Math.cos(t) / (1 + Math.sin(t) * Math.sin(t));
+
+            return {
+                x: 200 + x,
+                y: 100 + y
+            };
+        }
+
+        function animate() {
+            t1 += speed;
+            t2 += speed;
+
+            const pos1 = getInfinityPosition(t1);
+            const pos2 = getInfinityPosition(t2);
+
+            dot1.style.left = pos1.x + 'px';
+            dot1.style.top = pos1.y + 'px';
+            dot2.style.left = pos2.x + 'px';
+            dot2.style.top = pos2.y + 'px';
+
+            updateTrail(trail1, pos1.x, pos1.y, 'trail1');
+            updateTrail(trail2, pos2.x, pos2.y, 'trail2');
+
+            requestAnimationFrame(animate);
+        }
+
+        function checkProximity() {
+            const pos1 = getInfinityPosition(t1);
+            const pos2 = getInfinityPosition(t2);
+            const distance = Math.sqrt(Math.pow(pos1.x - pos2.x, 2) + Math.pow(pos1.y - pos2.y, 2));
+            return distance < 45;
+        }
+
+        clickZone.addEventListener('click', () => {
+            if (checkProximity()) {
+                score++;
+                scoreEl.textContent = score;
+                showFeedback('Perfect! 💖', true);
+
+                dot1.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                dot2.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                setTimeout(() => {
+                    dot1.style.transform = 'translate(-50%, -50%) scale(1)';
+                    dot2.style.transform = 'translate(-50%, -50%) scale(1)';
+                }, 200);
+
+                if (score >= targetScore) {
+                    setTimeout(showMessage, 500);
+                }
+            } else {
+                showFeedback('Coba lagi!', false);
+            }
+        });
+
+        function showFeedback(text, isSuccess) {
+            feedback.textContent = text;
+            feedback.className = 'feedback show ' + (isSuccess ? 'success' : 'fail');
+            setTimeout(() => {
+                feedback.className = 'feedback';
+            }, 1000);
+        }
+
+        function showMessage() {
+            centerLine.classList.add('expand');
+
+            setTimeout(() => {
+                gameSection.classList.add('hidden');
+                messageContainer.classList.add('show');
+
+                setTimeout(() => {
+                    messageContainer.classList.add('fade-in');
+                    typeWriter(message, 0);
+                }, 100);
+            }, 1500);
+        }
+
+        function typeWriter(text, index) {
+            if (index < text.length) {
+                typewriterEl.textContent += text.charAt(index);
+                setTimeout(() => typeWriter(text, index + 1), 50);
+            }
+        }
+
+        animate();
+    </script>
+</body>
+
+</html>
