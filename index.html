@@ -31,7 +31,7 @@
         }
 
         .center-line {
-            position: absolute;
+            position: fixed;
             top: 50%;
             left: -100%;
             width: 100%;
@@ -47,7 +47,7 @@
 
         .center-line.show {
             opacity: 1;
-            animation: lineShoot 1.2s cubic-bezier(0.6, 0.04, 0.98, 0.335) forwards;
+            animation: lineShoot 1.2s cubic-bezier(0.8, 0, 1, 0.2) forwards;
         }
 
         @keyframes lineShoot {
@@ -55,8 +55,8 @@
                 left: -100%;
             }
 
-            10% {
-                left: -90%;
+            1% {
+                left: -99%;
             }
 
             100% {
@@ -65,12 +65,25 @@
         }
 
         .center-line.expand {
-            height: 100vh;
-            width: 100vw;
-            top: 0;
-            left: 0;
-            transform: none;
-            transition: all 1.5s ease;
+            animation: expandWhite 1.5s ease forwards;
+        }
+
+        @keyframes expandWhite {
+            0% {
+                height: 2px;
+                width: 100%;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+            }
+
+            100% {
+                height: 100vh;
+                width: 100vw;
+                top: 0;
+                left: 0;
+                transform: translateY(0);
+            }
         }
 
         .container {
@@ -504,13 +517,15 @@
         }
 
         .message-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             display: none;
             color: #000000;
             max-width: 900px;
             padding: 40px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1000;
+            z-index: 10001;
             opacity: 0;
         }
 
@@ -583,12 +598,6 @@
     <div class="center-line" id="centerLine"></div>
 
     <div class="container">
-
-        <div class="message-container" id="messageContainer">
-            <h2>🌹 Selamat Valentine! 🌹</h2>
-            <div class="typewriter" id="typewriter"></div>
-            <div class="hearts">💖 💝 💗 💓 💕</div>
-        </div>
         <div id="gameSection">
             <h1 id="title">RETRO GAME TEST</h1>
             <p class="instruction" id="instruction">Click when the two dots meet in the center!</p>
@@ -607,6 +616,12 @@
 
             <div class="score" id="scoreDiv">SCORE: <span id="score">0</span> / 5</div>
         </div>
+    </div>
+
+    <div class="message-container" id="messageContainer">
+        <h2>🌹 Selamat Valentine! 🌹</h2>
+        <div class="typewriter" id="typewriter"></div>
+        <div class="hearts">💖 💝 💗 💓 💕</div>
     </div>
 
     <div class="click-zone" id="clickZone"></div>
@@ -776,7 +791,7 @@
 
         function typeWriter(text, index) {
             if (index < text.length) {
-                typewriterEl.innerHTML += text.charAt(index);
+                typewriterEl.textContent += text.charAt(index);
                 setTimeout(() => typeWriter(text, index + 1), 50);
             }
         }
