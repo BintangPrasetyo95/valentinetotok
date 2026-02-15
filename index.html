@@ -4,9 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine Special ♥</title>
+    <title>Retro Game Test</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
+        @font-face {
+            font-family: 'DeterminationMono';
+            src: url('DeterminationMonoWebRegular-Z5oq.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
 
         * {
             margin: 0;
@@ -15,7 +20,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'DeterminationMono', 'Courier New', monospace;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -28,17 +33,35 @@
         .center-line {
             position: absolute;
             top: 50%;
-            left: 0;
-            right: 0;
+            left: -100%;
+            width: 100%;
             height: 2px;
             background: white;
             transform: translateY(-50%);
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
                 0 0 20px rgba(255, 255, 255, 0.6),
                 0 0 30px rgba(255, 255, 255, 0.4);
-            animation: glowPulse 2s ease-in-out infinite;
-            transition: all 1.5s ease;
-            z-index: 1;
+            z-index: 1000;
+            opacity: 0;
+        }
+
+        .center-line.show {
+            opacity: 1;
+            animation: lineShoot 1.2s cubic-bezier(0.6, 0.04, 0.98, 0.335) forwards;
+        }
+
+        @keyframes lineShoot {
+            0% {
+                left: -100%;
+            }
+
+            10% {
+                left: -90%;
+            }
+
+            100% {
+                left: 0;
+            }
         }
 
         .center-line.expand {
@@ -47,23 +70,7 @@
             top: 0;
             left: 0;
             transform: none;
-            animation: none;
-        }
-
-        @keyframes glowPulse {
-
-            0%,
-            100% {
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-                    0 0 20px rgba(255, 255, 255, 0.6),
-                    0 0 30px rgba(255, 255, 255, 0.4);
-            }
-
-            50% {
-                box-shadow: 0 0 20px rgba(255, 255, 255, 1),
-                    0 0 30px rgba(255, 255, 255, 0.8),
-                    0 0 40px rgba(255, 255, 255, 0.6);
-            }
+            transition: all 1.5s ease;
         }
 
         .container {
@@ -85,13 +92,31 @@
             font-size: 2.5em;
             margin-bottom: 20px;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            letter-spacing: 2px;
+        }
+
+        h1.shake {
+            animation: shakeGlitch 1.5s steps(15);
+        }
+
+        h1.fall {
+            animation: fallDown 1s ease forwards;
         }
 
         .instruction {
             color: white;
             font-size: 1.2em;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .instruction.shake {
+            animation: shakeGlitch 1.5s steps(15);
+        }
+
+        .instruction.fall {
+            animation: fallDown 1.2s ease forwards;
         }
 
         .infinity-container {
@@ -101,23 +126,256 @@
             transform: translate(-50%, -50%);
             width: 400px;
             height: 200px;
+            transition: opacity 2s ease;
         }
 
-        .trail {
+        .infinity-container.fade-out {
+            opacity: 0;
+        }
+
+        .infinity-container.shake {
+            animation: shakeGlitchContainer 1.5s steps(15);
+        }
+
+        .infinity-container.fall {
+            animation: fallDown 0.8s ease forwards;
+        }
+
+        @keyframes shakeGlitch {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            6.67% {
+                transform: translate(-10px, 5px);
+            }
+
+            13.33% {
+                transform: translate(8px, -8px);
+            }
+
+            20% {
+                transform: translate(-12px, 3px);
+            }
+
+            26.67% {
+                transform: translate(6px, -10px);
+            }
+
+            33.33% {
+                transform: translate(-8px, 8px);
+            }
+
+            40% {
+                transform: translate(10px, -5px);
+            }
+
+            46.67% {
+                transform: translate(-6px, 12px);
+            }
+
+            53.33% {
+                transform: translate(12px, -3px);
+            }
+
+            60% {
+                transform: translate(-5px, 6px);
+            }
+
+            66.67% {
+                transform: translate(8px, -9px);
+            }
+
+            73.33% {
+                transform: translate(-11px, 4px);
+            }
+
+            80% {
+                transform: translate(9px, -7px);
+            }
+
+            86.67% {
+                transform: translate(-7px, 10px);
+            }
+
+            93.33% {
+                transform: translate(5px, -6px);
+            }
+
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        @keyframes shakeGlitchContainer {
+            0% {
+                transform: translate(-50%, -50%);
+            }
+
+            6.67% {
+                transform: translate(-55%, -45%);
+            }
+
+            13.33% {
+                transform: translate(-45%, -55%);
+            }
+
+            20% {
+                transform: translate(-58%, -48%);
+            }
+
+            26.67% {
+                transform: translate(-42%, -52%);
+            }
+
+            33.33% {
+                transform: translate(-54%, -54%);
+            }
+
+            40% {
+                transform: translate(-46%, -46%);
+            }
+
+            46.67% {
+                transform: translate(-52%, -48%);
+            }
+
+            53.33% {
+                transform: translate(-48%, -52%);
+            }
+
+            60% {
+                transform: translate(-51%, -49%);
+            }
+
+            66.67% {
+                transform: translate(-49%, -51%);
+            }
+
+            73.33% {
+                transform: translate(-53%, -47%);
+            }
+
+            80% {
+                transform: translate(-47%, -53%);
+            }
+
+            86.67% {
+                transform: translate(-52%, -50%);
+            }
+
+            93.33% {
+                transform: translate(-48%, -50%);
+            }
+
+            100% {
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        @keyframes shakeGlitchScore {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            6.67% {
+                transform: translate(-12px, 6px);
+            }
+
+            13.33% {
+                transform: translate(10px, -10px);
+            }
+
+            20% {
+                transform: translate(-8px, 8px);
+            }
+
+            26.67% {
+                transform: translate(12px, -6px);
+            }
+
+            33.33% {
+                transform: translate(-10px, 10px);
+            }
+
+            40% {
+                transform: translate(8px, -8px);
+            }
+
+            46.67% {
+                transform: translate(-12px, 6px);
+            }
+
+            53.33% {
+                transform: translate(10px, -10px);
+            }
+
+            60% {
+                transform: translate(-6px, 8px);
+            }
+
+            66.67% {
+                transform: translate(9px, -9px);
+            }
+
+            73.33% {
+                transform: translate(-11px, 5px);
+            }
+
+            80% {
+                transform: translate(7px, -7px);
+            }
+
+            86.67% {
+                transform: translate(-9px, 11px);
+            }
+
+            93.33% {
+                transform: translate(6px, -6px);
+            }
+
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        @keyframes fallDown {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(150vh) rotate(45deg);
+            }
+        }
+
+        .infinity-path {
             position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 5;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
 
-        .trail1 {
-            box-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
-            background: rgba(255, 107, 107, 0.4);
+        .path-line {
+            stroke: rgba(255, 255, 255, 0.8);
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 5, 5;
+            animation: pathPulse 3s ease-in-out infinite;
         }
 
-        .trail2 {
-            box-shadow: 0 0 20px rgba(78, 205, 196, 0.6);
-            background: rgba(78, 205, 196, 0.4);
+        @keyframes pathPulse {
+
+            0%,
+            100% {
+                opacity: 0.7;
+            }
+
+            50% {
+                opacity: 1;
+            }
         }
 
         .dot {
@@ -126,8 +384,12 @@
             height: 24px;
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            transition: all 0.1s ease;
+            transition: opacity 2s ease, transform 0.1s ease;
             z-index: 10;
+        }
+
+        .dot.fade-out {
+            opacity: 0;
         }
 
         .dot1 {
@@ -155,6 +417,11 @@
             transform: translate(-50%, -50%);
             animation: pulse 1.5s infinite;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+            transition: opacity 2s ease;
+        }
+
+        .center-target.fade-out {
+            opacity: 0;
         }
 
         @keyframes pulse {
@@ -179,35 +446,37 @@
             margin-top: 30px;
             font-weight: bold;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .score.shake {
+            animation: shakeGlitchScore 1.5s steps(15);
+        }
+
+        .score.fall {
+            animation: fallDown 1.5s ease forwards;
         }
 
         .click-zone {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100px;
-            height: 100px;
-            transform: translate(-50%, -50%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             cursor: pointer;
-            z-index: 100;
-            border-radius: 50%;
-        }
-
-        .click-zone:hover {
-            background: rgba(255, 255, 255, 0.05);
+            z-index: 5;
         }
 
         .feedback {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.8em;
+            color: white;
+            font-size: 1.5em;
             font-weight: bold;
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
             z-index: 1000;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
         }
 
         .feedback.show {
@@ -226,15 +495,23 @@
                 0 0 25px #ff6b6b;
         }
 
+        .feedback.shake {
+            animation: shakeGlitch 1.5s steps(15);
+        }
+
+        .feedback.fall {
+            animation: fallDown 0.9s ease forwards;
+        }
+
         .message-container {
             display: none;
             color: #000000;
-            max-width: 700px;
+            max-width: 900px;
+            padding: 40px;
             margin: 0 auto;
             position: relative;
             z-index: 1000;
             opacity: 0;
-            transition: opacity 2s ease;
         }
 
         .message-container.show {
@@ -243,22 +520,23 @@
 
         .message-container.fade-in {
             opacity: 1;
+            transition: opacity 2s ease;
         }
 
         .message-container h2 {
-            font-family: 'Caveat', cursive;
-            font-size: 4em;
+            font-size: 2.5em;
             margin-bottom: 40px;
             animation: float 3s ease-in-out infinite;
+            letter-spacing: 2px;
         }
 
         .typewriter {
-            font-family: 'Caveat', cursive;
-            font-size: 2em;
-            line-height: 1.8;
+            font-size: 1.6em;
+            line-height: 2;
             margin-bottom: 20px;
-            min-height: 150px;
             animation: float 3s ease-in-out infinite 0.5s;
+            letter-spacing: 1px;
+            max-width: 100%;
         }
 
         @keyframes float {
@@ -305,41 +583,49 @@
     <div class="center-line" id="centerLine"></div>
 
     <div class="container">
-        <div id="gameSection">
-            <h1>💝 Valentine Challenge 💝</h1>
-            <p class="instruction">Klik saat kedua titik bertemu di tengah!</p>
-
-            <div class="feedback" id="feedback"></div>
-
-            <div class="game-container">
-                <div class="infinity-container" id="infinityContainer">
-                    <div class="center-target"></div>
-                    <div class="dot dot1" id="dot1"></div>
-                    <div class="dot dot2" id="dot2"></div>
-                    <div class="click-zone" id="clickZone"></div>
-                </div>
-            </div>
-
-            <div class="score">Score: <span id="score">0</span> / 5</div>
-        </div>
 
         <div class="message-container" id="messageContainer">
             <h2>🌹 Selamat Valentine! 🌹</h2>
             <div class="typewriter" id="typewriter"></div>
             <div class="hearts">💖 💝 💗 💓 💕</div>
         </div>
+        <div id="gameSection">
+            <h1 id="title">RETRO GAME TEST</h1>
+            <p class="instruction" id="instruction">Click when the two dots meet in the center!</p>
+            <div class="feedback" id="feedback"></div>
+
+            <div class="game-container">
+                <div class="infinity-container" id="infinityContainer">
+                    <svg class="infinity-path" viewBox="0 0 400 200">
+                        <path class="path-line" id="pathLine" d="" />
+                    </svg>
+                    <div class="center-target" id="centerTarget"></div>
+                    <div class="dot dot1" id="dot1"></div>
+                    <div class="dot dot2" id="dot2"></div>
+                </div>
+            </div>
+
+            <div class="score" id="scoreDiv">SCORE: <span id="score">0</span> / 5</div>
+        </div>
     </div>
+
+    <div class="click-zone" id="clickZone"></div>
 
     <script>
         const dot1 = document.getElementById('dot1');
         const dot2 = document.getElementById('dot2');
         const clickZone = document.getElementById('clickZone');
         const scoreEl = document.getElementById('score');
+        const scoreDiv = document.getElementById('scoreDiv');
         const feedback = document.getElementById('feedback');
         const gameSection = document.getElementById('gameSection');
         const messageContainer = document.getElementById('messageContainer');
         const typewriterEl = document.getElementById('typewriter');
         const centerLine = document.getElementById('centerLine');
+        const centerTarget = document.getElementById('centerTarget');
+        const pathLine = document.getElementById('pathLine');
+        const title = document.getElementById('title');
+        const instruction = document.getElementById('instruction');
         const infinityContainer = document.getElementById('infinityContainer');
 
         let score = 0;
@@ -349,39 +635,6 @@
         const targetScore = 5;
 
         const message = "Di hari Valentine ini, aku cuma mau bilang... terima kasih udah ada dan bikin hari-hari jadi lebih berwarna. Kamu spesial banget! ✨";
-
-        const trail1 = [];
-        const trail2 = [];
-        const maxTrailLength = 15;
-
-        function createTrail(x, y, className) {
-            const trail = document.createElement('div');
-            trail.className = 'trail ' + className;
-            trail.style.left = x + 'px';
-            trail.style.top = y + 'px';
-            trail.style.width = '20px';
-            trail.style.height = '20px';
-            trail.style.transform = 'translate(-50%, -50%)';
-            infinityContainer.appendChild(trail);
-            return trail;
-        }
-
-        function updateTrail(trails, x, y, className) {
-            const newTrail = createTrail(x, y, className);
-            trails.push(newTrail);
-
-            if (trails.length > maxTrailLength) {
-                const oldTrail = trails.shift();
-                oldTrail.remove();
-            }
-
-            trails.forEach((trail, index) => {
-                const opacity = (index + 1) / maxTrailLength;
-                const scale = (index + 1) / maxTrailLength * 0.8;
-                trail.style.opacity = opacity * 0.4;
-                trail.style.transform = `translate(-50%, -50%) scale(${scale})`;
-            });
-        }
 
         function getInfinityPosition(t) {
             const scale = 90;
@@ -393,6 +646,20 @@
                 y: 100 + y
             };
         }
+
+        function drawPath() {
+            let pathData = 'M ';
+            const steps = 200;
+            for (let i = 0; i <= steps; i++) {
+                const t = (i / steps) * Math.PI * 2;
+                const pos = getInfinityPosition(t);
+                pathData += `${pos.x},${pos.y} `;
+                if (i === 0) pathData += 'L ';
+            }
+            pathLine.setAttribute('d', pathData);
+        }
+
+        drawPath();
 
         function animate() {
             t1 += speed;
@@ -406,9 +673,6 @@
             dot2.style.left = pos2.x + 'px';
             dot2.style.top = pos2.y + 'px';
 
-            updateTrail(trail1, pos1.x, pos1.y, 'trail1');
-            updateTrail(trail2, pos2.x, pos2.y, 'trail2');
-
             requestAnimationFrame(animate);
         }
 
@@ -419,11 +683,11 @@
             return distance < 45;
         }
 
-        clickZone.addEventListener('click', () => {
+        clickZone.addEventListener('click', (e) => {
             if (checkProximity()) {
                 score++;
                 scoreEl.textContent = score;
-                showFeedback('Perfect! 💖', true);
+                showFeedback('* PERFECT! *', true);
 
                 dot1.style.transform = 'translate(-50%, -50%) scale(1.5)';
                 dot2.style.transform = 'translate(-50%, -50%) scale(1.5)';
@@ -436,7 +700,7 @@
                     setTimeout(showMessage, 500);
                 }
             } else {
-                showFeedback('Coba lagi!', false);
+                showFeedback('* Try Again! *', false);
             }
         });
 
@@ -449,22 +713,70 @@
         }
 
         function showMessage() {
-            centerLine.classList.add('expand');
+            clickZone.style.display = 'none';
+
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log('Fullscreen request failed:', err);
+                });
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) {
+                document.documentElement.msRequestFullscreen();
+            }
+
+            dot1.classList.add('fade-out');
+            dot2.classList.add('fade-out');
+            centerTarget.classList.add('fade-out');
+            infinityContainer.classList.add('fade-out');
 
             setTimeout(() => {
-                gameSection.classList.add('hidden');
-                messageContainer.classList.add('show');
+                centerLine.classList.add('show');
 
                 setTimeout(() => {
-                    messageContainer.classList.add('fade-in');
-                    typeWriter(message, 0);
-                }, 100);
-            }, 1500);
+                    title.classList.add('shake');
+                    instruction.classList.add('shake');
+                    scoreDiv.classList.add('shake');
+                    feedback.classList.add('shake');
+
+                    setTimeout(() => {
+                        const elements = [
+                            { el: title, delay: 0 },
+                            { el: instruction, delay: 100 },
+                            { el: scoreDiv, delay: 150 },
+                            { el: feedback, delay: 80 }
+                        ];
+
+                        elements.sort(() => Math.random() - 0.5);
+
+                        elements.forEach((item) => {
+                            setTimeout(() => {
+                                item.el.classList.remove('shake');
+                                item.el.classList.add('fall');
+                            }, item.delay);
+                        });
+
+                        setTimeout(() => {
+                            centerLine.classList.add('expand');
+
+                            setTimeout(() => {
+                                gameSection.style.display = 'none';
+                                messageContainer.classList.add('show');
+                                messageContainer.classList.add('fade-in');
+
+                                setTimeout(() => {
+                                    typeWriter(message, 0);
+                                }, 1000);
+                            }, 1500);
+                        }, 1500);
+                    }, 2000);
+                }, 1200);
+            }, 2500);
         }
 
         function typeWriter(text, index) {
             if (index < text.length) {
-                typewriterEl.textContent += text.charAt(index);
+                typewriterEl.innerHTML += text.charAt(index);
                 setTimeout(() => typeWriter(text, index + 1), 50);
             }
         }
